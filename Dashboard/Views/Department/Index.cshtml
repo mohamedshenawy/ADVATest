@@ -1,0 +1,41 @@
+﻿@using Domain.DTO;
+@model IEnumerable<DepartmentDTO>;
+@{
+    ViewData["Title"] = "Departments";
+}
+
+<a href="/Department/Create" class="btn btn-primary">Add Departemnt</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Department Manager</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var departemnt in Model)
+        {
+            <tr>
+                <td>@departemnt.Id</td>
+                <td>@departemnt.Name</td>
+                <td>@departemnt?.DepartmentManager?.Name</td>
+                <td>
+                    <a href="/Department/Create/@departemnt.Id" class="btn btn-light">Edit</a>
+                    <button onclick="OpenDeletePopup(@departemnt.Id)" class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+
+
+
+@section Scripts{
+    <script src="~/js/Department.js" asp-append-version="true"></script>
+   }

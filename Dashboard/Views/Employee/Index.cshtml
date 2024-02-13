@@ -1,0 +1,45 @@
+﻿@using Domain.DTO;
+@model IEnumerable<EmployeeDTO>;
+@{
+    ViewData["Title"] = "Employees";
+}
+
+<a href="/employee/Create" class="btn btn-primary">Add Employee</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Department</th>
+            <th scope="col">Manager</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <td>@employee.Id</td>
+                <td>@employee.Name</td>
+                <td>@employee.Salary</td>
+                <td>@employee?.Department?.Name</td>
+                <td>@employee?.Manager?.Name</td>
+                <td>
+                    <a href="/employee/Create/@employee.Id" class="btn btn-light">Edit</a>
+                    <button onclick="OpenDeletePopup(@employee.Id)" class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+
+
+
+@section Scripts{
+    <script src="~/js/Employee.js" asp-append-version="true"></script>
+   }

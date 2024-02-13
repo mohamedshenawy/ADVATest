@@ -1,0 +1,60 @@
+﻿@using Domain.ViewModels;
+@model DepartmentViewModel;
+
+@{
+    if (@Model?.Department?.Id > 0)
+    {
+        ViewData["title"] = "Update Department";
+    }
+    else
+    {
+        ViewData["title"] = "Create Department";
+    }
+}
+@if(Model?.Department?.Id > 0)
+{
+    <p>Edit Department # @Model?.Department?.Id</p>
+}
+
+<form class="row g-3 needs-validation" novalidate>
+    <input hidden value="@Model?.Department?.Id" id="DepartmentId" />
+    <div class="col-md-4">
+        <label for="validationCustom01" class="form-label">Name</label>
+        <input type="text" value="@Model?.Department?.Name" class="form-control" id="Name" required>
+        <div class="invalid-feedback">
+            Please add a vaild name
+        </div>
+    </div>
+    @if (Model?.AllEmployees.Count() > 0)
+    {
+        <div class="col-md-4">
+            <label for="validationCustom04" class="form-label">Department Manager</label>
+            <select class="form-select" id="DepartmentManagerId" required>
+                <option disabled value="">Choose...</option>
+                @foreach (var emp in Model?.AllEmployees)
+                {
+                    if (emp.Id == Model?.Department?.DepartmentManagerId)
+                    {
+                        <option selected value="@emp.Id">@emp.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@emp.Id">@emp.Name</option>
+                    }
+                }
+            </select>
+            <div class="invalid-feedback">
+                Please select a valid state.
+            </div>
+        </div>
+
+    }
+
+    <div class="col-12">
+        <button class="btn btn-light" type="submit">Submit</button>
+    </div>
+</form>
+
+@section Scripts{
+    <script src="~/js/Department.js" asp-append-version="true"></script>
+   }

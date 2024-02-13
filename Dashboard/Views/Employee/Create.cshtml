@@ -1,0 +1,90 @@
+﻿@using Domain.ViewModels;
+@model EmployeeViewModel;
+
+@{
+    if (@Model?.Employee?.Id > 0)
+    {
+        ViewData["title"] = "Update Employee";
+    }
+    else
+    {
+        ViewData["title"] = "Create Employee";
+    }
+}
+@if (Model?.Employee?.Id > 0)
+{
+    <p>Edit Employee # @Model?.Employee?.Id</p>
+}
+
+<form class="row g-3 needs-validation" novalidate>
+    <input hidden value="@Model?.Employee?.Id" id="EmployeeId" />
+
+    <div class="col-md-4">
+        <label for="validationCustom01" class="form-label">Name</label>
+        <input type="text" value="@Model?.Employee?.Name" class="form-control" id="Name" required>
+        <div class="invalid-feedback">
+            Please add a vaild name
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <label for="validationCustom01" class="form-label">Salary</label>
+        <input type="text" value="@(Model?.Employee?.Salary)" class="form-control" id="Salary" required>
+        <div class="invalid-feedback">
+            Please add a vaild salary
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <label for="validationCustom04" class="form-label">Department</label>
+        <select class="form-select" id="DepartmentId" required>
+            <option disabled value="">Choose...</option>
+            @foreach (var dep in Model?.AllDepartments)
+            {
+                if (dep.Id == Model?.Employee?.DepartmentId)
+                {
+                    <option selected value="@dep.Id">@dep.Name</option>
+                }
+                else
+                {
+                    <option value="@dep.Id">@dep.Name</option>
+                }
+            }
+        </select>
+        <div class="invalid-feedback">
+            Please select a valid department.
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <label for="validationCustom04" class="form-label">Manager</label>
+        <select class="form-select" id="ManagerId">
+            <option disabled value="">Choose...</option>
+            @foreach (var emp in Model?.AllEmployees)
+            {
+                if (emp.Id == Model?.Employee?.Id) continue;
+
+                if (emp.Id == Model?.Employee?.ManagerId)
+                {
+                    <option selected value="@emp.Id">@emp.Name</option>
+                }
+                else
+                {
+                    <option value="@emp.Id">@emp.Name</option>
+                }
+            }
+        </select>
+        @*<div class="invalid-feedback">
+            Please select a valid manager.
+        </div>*@
+    </div>
+
+
+    <div class="col-12">
+        <button class="btn btn-light" type="submit">Submit</button>
+    </div>
+</form>
+
+@section Scripts{
+    <script src="~/js/Employee.js" asp-append-version="true"></script>
+   }
