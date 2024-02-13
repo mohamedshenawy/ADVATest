@@ -64,12 +64,17 @@ namespace Dashboard.Controllers
         {
             try
             {
+                var EmployeesInDepartmentCount = _employeeService.GetWhereCount(x => x.DepartmentId == Id);
+                if (EmployeesInDepartmentCount > 0)
+                {
+                    return BadRequest(new { messsage = "this Department has one employee or more" });
+                }
                 var result = _departmentService.Delete(Id);
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { messsage = ex.Message });
             }
         }
     }

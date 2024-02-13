@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dashboard.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240213093656_initTest4")]
-    partial class initTest4
+    [Migration("20240213174332_getstrignfromappsitting")]
+    partial class getstrignfromappsitting
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

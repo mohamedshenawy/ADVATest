@@ -66,6 +66,11 @@ namespace Dashboard.Controllers
         {
             try
             {
+                var dapartmentsManagedByEmployeeCount = _departmentService.GetWhereCount(x=>x.DepartmentManagerId == Id);
+                if (dapartmentsManagedByEmployeeCount > 0)
+                {
+                    return BadRequest(new { message = "this employee manage one department or more" });
+                }
                 var result = _employeeService.Delete(Id);
                 return Ok(result);
             }

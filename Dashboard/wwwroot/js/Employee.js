@@ -81,11 +81,7 @@ function OpenDeletePopup(Id) {
             fetch(apiUrl)
                 .then(response => {
                     if (!response.ok) {
-                        Swal.fire({
-                            title: response.status,
-                            text: response.statusText,
-                            icon: "error"
-                        });
+                        throw new Error('Network response was not ok');
                     }
                     return response.json();
                 })
@@ -103,7 +99,7 @@ function OpenDeletePopup(Id) {
                 .catch(error => {
                     Swal.fire({
                         title: "Error",
-                        text: error,
+                        text: error.message || 'An error occurred',
                         icon: "error"
                     });
                 });

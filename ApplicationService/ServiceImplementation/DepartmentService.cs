@@ -1,90 +1,78 @@
 ﻿using AutoMapper;
 using Domain.DTO;
 using Domain.Entities;
-using DomainService.Context;
 using DomainService.UnitOfWork;
+using System.Linq.Expressions;
 
 namespace ApplicationService.ServiceImplementation
 {
     public class DepartmentService
     {
-        private readonly IUnitOfWork<Context> _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public DepartmentService(IUnitOfWork<Context> unitOfWork, IMapper mapper)
+        public DepartmentService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            this._mapper = mapper;
-            this._unitOfWork = unitOfWork;
+            _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         public int Create(DepartmentDTO entity)
         {
-            try
-            {
-                var model = _mapper.Map<Department>(entity);
-                _unitOfWork.DepartmentRepo.Create(model);
-                var result = _unitOfWork.Commit();
-                return model.Id;
+            var model = _mapper.Map<Department>(entity);
+            _unitOfWork.DepartmentRepo.Create(model);
+            var result = _unitOfWork.Commit();
 
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            return model.Id;
         }
 
         public int Update(DepartmentDTO entity)
         {
-            try
-            {
-                var model = _mapper.Map<Department>(entity);
-                _unitOfWork.DepartmentRepo.Update(model);
-                var result = _unitOfWork.Commit();
-                return result;
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            var model = _mapper.Map<Department>(entity);
+            
+            _unitOfWork.DepartmentRepo.Update(model);
+            var result = _unitOfWork.Commit();
+            
+            return result;
         }
+
         public  int Delete(int Id)
         {
-            try
-            {
-                var model = _unitOfWork.DepartmentRepo.GetWhere(e => e.Id == Id).SingleOrDefault();
-                _unitOfWork.DepartmentRepo.Delete(model);
-                var result = _unitOfWork.Commit();
-                return result;
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            var model = _unitOfWork.DepartmentRepo.GetWhere(e => e.Id == Id).SingleOrDefault();
+            
+            _unitOfWork.DepartmentRepo.Delete(model);
+            var result = _unitOfWork.Commit();
+            
+            return result;
         }
+
         public IEnumerable<DepartmentDTO> GetAll()
         {
-            try
-            {
-                var data = _unitOfWork.DepartmentRepo.GetAll(x => x.DepartmentManager);
-                var mappedData = _mapper.Map<IEnumerable<DepartmentDTO>>(data);
-                return mappedData;
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            var data = _unitOfWork.DepartmentRepo.GetAll(x => x.DepartmentManager);
+            var mappedData = _mapper.Map<IEnumerable<DepartmentDTO>>(data);
+            
+            return mappedData;
         }
+
+        public IEnumerable<DepartmentDTO> GetWhere(Expression<Func<Department, bool>> where)
+        {
+            var data = _unitOfWork.DepartmentRepo.GetWhere(where);
+            var mappedData = _mapper.Map<IEnumerable<DepartmentDTO>>(data);
+           
+            return mappedData;
+        }
+
+        public int GetWhereCount(Expression<Func<Department, bool>> where)
+        {
+            var count = _unitOfWork.DepartmentRepo.GetWhere(where).Count();
+            return count;
+        }
+
         public DepartmentDTO GetById(int id)
         {
-            try
-            {
-                var data = _unitOfWork.DepartmentRepo.GetWhere(e => e.Id == id, x => x.DepartmentManager).SingleOrDefault();
-                var mappedData = _mapper.Map<DepartmentDTO>(data);
-                return mappedData;
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            var data = _unitOfWork.DepartmentRepo.GetWhere(e => e.Id == id, x => x.DepartmentManager).SingleOrDefault();
+            var mappedData = _mapper.Map<DepartmentDTO>(data);
+            
+            return mappedData;
         }
 
     }

@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace DomainService.UnitOfWork
 {
-    public interface IUnitOfWork<out TContext> where TContext : Context.Context, new()
+    public interface IUnitOfWork 
     {
         public IRepo<Employee> EmployeeRepo { get;}
         public IRepo<Department> DepartmentRepo { get; }
-        public TContext _context { get; }
         public int Commit();
 
     }

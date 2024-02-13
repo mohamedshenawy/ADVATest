@@ -1,10 +1,10 @@
 using ApplicationService.ServiceImplementation;
 using AutoMapper;
-using Domain.Models;
-using DomainService.Context;
 using DomainService.Repo;
 using DomainService.UnitOfWork;
+using Infrastructure.Context;
 using Infrastructure.Mapping;
+using Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,7 +25,7 @@ var environmentName = builder.Environment.EnvironmentName;
 //ConnectionStrings connectionStrings = configuration.GetSection("connectionStrings").Get<ConnectionStrings>();
 
 builder.Services.AddDbContext<Context>(options =>
-options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ADVATest;Integrated Security=True;Encrypt=False", b => b.MigrationsAssembly("Dashboard")));
+options.UseSqlServer("Data Source=localhost;Initial Catalog=ADVATest;Integrated Security=True;Encrypt=False", b => b.MigrationsAssembly("Dashboard")));
 var mappingConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new MapperProfile());
@@ -35,7 +35,7 @@ builder.Services.AddSingleton(mapper);
 
 builder.Services.AddScoped<Context, Context>();
 builder.Services.AddScoped(typeof(IRepo<>), typeof(RepoImplementation<>));
-builder.Services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
+builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 
 // logic services
 builder.Services.AddScoped<EmployeeService, EmployeeService>();

@@ -59,7 +59,7 @@ function CollectData() {
 function OpenDeletePopup(Id) {
     Swal.fire({
         title: "Are you sure to delete this item?",
-        text: "You won't be able to revert this!",
+        text: "if this department has employees , if it deleted then employees will be deleted",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -72,11 +72,7 @@ function OpenDeletePopup(Id) {
             fetch(apiUrl)
                 .then(response => {
                     if (!response.ok) {
-                        Swal.fire({
-                            title: response.status,
-                            text: response.statusText,
-                            icon: "error"
-                        });
+                        throw new Error('Network response was not ok');
                     }
                     return response.json();
                 })
@@ -94,7 +90,7 @@ function OpenDeletePopup(Id) {
                 .catch(error => {
                     Swal.fire({
                         title: "Error",
-                        text: error,
+                        text: error.message || 'An error occurred',
                         icon: "error"
                     });
                 });
