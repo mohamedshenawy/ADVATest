@@ -12,6 +12,7 @@
             <th scope="col">Name</th>
             <th scope="col">Salary</th>
             <th scope="col">Department</th>
+            <th scope="col">Is Manager</th>
             <th scope="col">Manager</th>
             <th scope="col"></th>
         </tr>
@@ -24,6 +25,7 @@
                 <td>@employee.Name</td>
                 <td>@employee.Salary</td>
                 <td>@employee?.Department?.Name</td>
+                <td>@(employee?.IsManager == true ? "Manager":"Not Manager")</td>
                 <td>@employee?.Manager?.Name</td>
                 <td>
                     <a href="/employee/Create/@employee.Id" class="btn btn-light">Edit</a>

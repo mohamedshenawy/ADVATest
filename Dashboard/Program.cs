@@ -25,7 +25,7 @@ var environmentName = builder.Environment.EnvironmentName;
 //ConnectionStrings connectionStrings = configuration.GetSection("connectionStrings").Get<ConnectionStrings>();
 
 builder.Services.AddDbContext<Context>(options =>
-options.UseSqlServer("Data Source=localhost;Initial Catalog=ADVATest;Integrated Security=True;Encrypt=False"));
+options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ADVATest;Integrated Security=True;Encrypt=False", b => b.MigrationsAssembly("Dashboard")));
 var mappingConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new MapperProfile());

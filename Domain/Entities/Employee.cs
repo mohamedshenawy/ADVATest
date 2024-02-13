@@ -8,6 +8,7 @@ namespace Domain.Entities
         public decimal Salary { get; set; }
         [ForeignKey("Department")]
         public int DepartmentId { get; set; }
+        public bool IsManager { get; set; }
         public virtual Department Department { get; set; }
 
         [ForeignKey("Manager")]

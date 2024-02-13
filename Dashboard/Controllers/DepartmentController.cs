@@ -27,7 +27,7 @@ namespace Dashboard.Controllers
         public IActionResult Create(int Id = 0)
         {
             var viewModel = new DepartmentViewModel();
-            viewModel.AllEmployees =  _employeeService.GetAll();
+            viewModel.AllEmployees =  _employeeService.GetManagers();
             if (Id>0)
             {
                 viewModel.Department = _departmentService.GetById(Id);

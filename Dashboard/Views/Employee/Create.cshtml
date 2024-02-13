@@ -29,7 +29,8 @@
 
     <div class="col-md-4">
         <label for="validationCustom01" class="form-label">Salary</label>
-        <input type="text" value="@(Model?.Employee?.Salary)" class="form-control" id="Salary" required>
+        <input type="number" min="1" value="@(Model?.Employee?.Salary)" class="form-control" id="Salary" required oninput="validateSalary(this)">
+        <span id="salaryError" style="color: red;"></span>
         <div class="invalid-feedback">
             Please add a vaild salary
         </div>
@@ -55,11 +56,17 @@
             Please select a valid department.
         </div>
     </div>
-
+    <div class="col-md-4">
+        <label for="validationCustom01" class="form-label">Is Manager</label> </br>
+        <input type="checkbox" id="IsManager" >
+        <div class="invalid-feedback">
+            Please add a vaild manager
+        </div>
+    </div>
     <div class="col-md-4">
         <label for="validationCustom04" class="form-label">Manager</label>
         <select class="form-select" id="ManagerId">
-            <option disabled value="">Choose...</option>
+            <option  value="">Choose...</option>
             @foreach (var emp in Model?.AllEmployees)
             {
                 if (emp.Id == Model?.Employee?.Id) continue;

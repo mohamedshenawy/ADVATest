@@ -16,7 +16,7 @@ namespace DomainService.Context
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<Department> Department { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=ADVATest;Integrated Security=True;Encrypt=False");
+        => optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ADVATest;Integrated Security=True;Encrypt=False", b => b.MigrationsAssembly("Dashboard"));
 
     }
 }

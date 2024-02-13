@@ -50,7 +50,7 @@ namespace ApplicationService.ServiceImplementation
         {
             try
             {
-                var model = _unitOfWork.DepartmentRepo.GetWhere(e => e.Id == Id, x => x.DepartmentManager).SingleOrDefault();
+                var model = _unitOfWork.DepartmentRepo.GetWhere(e => e.Id == Id).SingleOrDefault();
                 _unitOfWork.DepartmentRepo.Delete(model);
                 var result = _unitOfWork.Commit();
                 return result;

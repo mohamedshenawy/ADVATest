@@ -50,7 +50,7 @@ namespace ApplicationService.ServiceImplementation
         {
             try
             {
-                var model = _unitOfWork.EmployeeRepo.GetWhere(e => e.Id == Id, x => x.Manager, x => x.Department).SingleOrDefault();
+                var model = _unitOfWork.EmployeeRepo.GetWhere(e => e.Id == Id).SingleOrDefault();
                 _unitOfWork.EmployeeRepo.Delete(model);
                 var result = _unitOfWork.Commit();
                 return result;
@@ -65,6 +65,19 @@ namespace ApplicationService.ServiceImplementation
             try
             {
                 var data = _unitOfWork.EmployeeRepo.GetAll(x=>x.Manager, x => x.Department);
+                var mappedData = _mapper.Map<IEnumerable<EmployeeDTO>>(data);
+                return mappedData;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+        public IEnumerable<EmployeeDTO> GetManagers()
+        {
+            try
+            {
+                var data = _unitOfWork.EmployeeRepo.GetWhere(e=>e.IsManager == true, x => x.Department);
                 var mappedData = _mapper.Map<IEnumerable<EmployeeDTO>>(data);
                 return mappedData;
             }

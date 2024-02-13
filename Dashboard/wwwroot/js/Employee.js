@@ -46,12 +46,14 @@ function CollectData() {
         "Id": 0,
         "Name": "",
         "Salary": "",
+        "IsManager": false,
         "ManagerId": 0,
         "DepartmentId": 0
     };
     var IdInput = document.querySelector("#EmployeeId");
     var NameInput = document.querySelector("#Name");
     var salaryInput = document.querySelector("#Salary");
+    var IsManagerCheckbox = document.querySelector("#IsManager");
     var departmentId = document.querySelector("#DepartmentId");
     var managerId = document.querySelector("#ManagerId");
     obj["Id"] = IdInput.value > 0 ? parseInt(IdInput.value):0;
@@ -59,6 +61,7 @@ function CollectData() {
     obj["Salary"] = parseFloat(salaryInput.value).toFixed(2);
     obj["DepartmentId"] = parseInt(departmentId.value);
     obj["ManagerId"] = parseInt(managerId.value);
+    obj["IsManager"] = IsManagerCheckbox.checked == true? true:false;
     return obj;
 }
 
@@ -107,6 +110,17 @@ function OpenDeletePopup(Id) {
         }
     });
 }
+function validateSalary(input) {
+    var value = input.value;
+    var isValid = parseFloat(value) >= 0 || value == '';
+
+    if (!isValid) {
+        input.setCustomValidity('Salary must be a non-negative number.');
+    } else {
+        input.setCustomValidity('');
+    }
+}
+
 
 var forms = document.querySelectorAll('.needs-validation')
 Array.prototype.slice.call(forms)
