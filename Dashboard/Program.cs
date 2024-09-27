@@ -17,15 +17,9 @@ var currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
 var environmentName = builder.Environment.EnvironmentName;
 
 //ConfigurationManager configuration = builder.Configuration;
-//builder.Configuration
-//    .SetBasePath(currentDirectory)
-//    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-//    .AddJsonFile($"appsettings.{environmentName}.json", optional: true, reloadOnChange: true)
-//    .AddEnvironmentVariables();
-//ConnectionStrings connectionStrings = configuration.GetSection("connectionStrings").Get<ConnectionStrings>();
-
+var connectionString = builder.Configuration.GetConnectionString("MyconnectionString");
 builder.Services.AddDbContext<Context>(options =>
-options.UseSqlServer("Data Source=localhost;Initial Catalog=ADVATest;Integrated Security=True;Encrypt=False", b => b.MigrationsAssembly("Dashboard")));
+options.UseSqlServer(connectionString, b => b.MigrationsAssembly("Dashboard")));
 var mappingConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new MapperProfile());

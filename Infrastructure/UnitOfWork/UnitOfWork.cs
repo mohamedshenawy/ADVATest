@@ -12,9 +12,9 @@ namespace Infrastructure.UnitOfWork
         protected Context.Context _context { get; }
 
 
-        public UnitOfWork()
+        public UnitOfWork(Context.Context myContext)
         {
-            _context = new Context.Context();
+            _context = myContext;
         }
         public IRepo<Employee> EmployeeRepo
         {
