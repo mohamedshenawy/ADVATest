@@ -5,8 +5,9 @@ Repo Included five parts
 - Presentation 
 - Configration
 - Application Service
-- domain Service (Context)
+- domain Service
 - domains
+  
 # How is it works
 
 - step one : open appsetting.json in admin then modfiy Data Source in connection string
